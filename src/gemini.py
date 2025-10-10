@@ -24,7 +24,7 @@ class GeminiService(LLMService):
 
         return [
             "curl",
-            f"{self.api_endpoint}/v1/models/{self.model}:streamGenerateContent?key={self.api_key}",
+            f"{self.api_endpoint}/v1beta/models/{self.model}:streamGenerateContent?key={self.api_key}",
             "--speed-limit", "0", "--speed-time", "5",  # Abort stalled connection after a few seconds
             "--silent", "--no-buffer",
             "--header", f"User-Agent: {self.user_agent}",

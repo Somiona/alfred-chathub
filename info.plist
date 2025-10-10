@@ -1900,20 +1900,20 @@ Here is how to get those api-keys:
 			<key>config</key>
 			<dict>
 				<key>default</key>
-				<string>gemini-1.5-pro</string>
+				<string>gemini-2.5-flash-preview-04-17</string>
 				<key>pairs</key>
 				<array>
 					<array>
-						<string>Gemini 1.5 Pro</string>
-						<string>gemini-1.5-pro</string>
+						<string>Gemini 2.5 Flash</string>
+						<string>gemini-2.5-flash-preview-04-17</string>
 					</array>
 					<array>
-						<string>Gemini 1.5 Flash</string>
-						<string>gemini-1.5-flash</string>
+						<string>Gemini 2.5 Pro</string>
+						<string>gemini-2.5-pro-preview-03-25</string>
 					</array>
 					<array>
-						<string>Gemini 1.0 Pro</string>
-						<string>gemini-1.0-pro</string>
+						<string>Gemini 2.0 Flash</string>
+						<string>gemini-2.0-flash</string>
 					</array>
 				</array>
 			</dict>
