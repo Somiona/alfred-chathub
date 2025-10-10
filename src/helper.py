@@ -53,11 +53,14 @@ def append_chat(path, message):
 def markdown_chat(messages, ignore_last_interrupted=True):
     result = ""
     for index, current in enumerate(messages):
-        if current["role"] == "assistant":
-            result += assistant_signature() + current["content"] + "\n\n"
-        elif current["role"] == "user":
-            user_message = user_signature() + "\n".join(f"{line}" for line in current["content"].split("\n"))
-            user_twice = index + 1 < len(messages) and messages[index + 1]["role"] == "user"
+        role = current.get("role")
+        content = current.get("content") or ""
+        if role == "assistant":
+            result += assistant_signature() + content + "\n\n"
+        elif role == "user":
+            lines = content.split("\n") if content else []
+            user_message = user_signature() + "\n".join(f"{line}" for line in lines)
+            user_twice = index + 1 < len(messages) and messages[index + 1].get("role") == "user"
             last_message = index == len(messages) - 1
             if user_twice or (last_message and not ignore_last_interrupted):
                 result += f"{user_message}\n\n[Answer Interrupted]\n\n"
