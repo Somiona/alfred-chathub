@@ -1,14 +1,15 @@
 #!/usr/bin/env python3
 
 import sys
-import json
-from openai import OpenaiService
+
 from anthropic import AnthropicService
+from deepseek import DeepseekService
 from gemini import GeminiService
-from qwen import QwenService
-from ollama import OllamaService
 from helper import *
-from llm_service import LLMService
+from ollama import OllamaService
+from openai import OpenaiService
+from qwen import QwenService
+
 
 def run(argv):
     typed_query = argv[0]
@@ -44,6 +45,10 @@ def run(argv):
     ollama_api_endpoint = env_var("ollama_api_endpoint")
     ollama_model = env_var("ollama_model")
 
+    deepseek_api_endpoint = env_var("deepseek_api_endpoint")
+    deepseek_api_key = env_var("deepseek_api_key")
+    deepseek_model = env_var("deepseek_model")
+
     llm_service = None
     if selected_llm_service == "openai":
         llm_service = OpenaiService(openai_api_endpoint, openai_api_key, openai_model, http_proxy, socks5_proxy)
@@ -55,6 +60,8 @@ def run(argv):
         llm_service = QwenService(qwen_api_endpoint, qwen_api_key, qwen_model, http_proxy, socks5_proxy)
     elif selected_llm_service == "ollama":
         llm_service = OllamaService(ollama_api_endpoint, ollama_model, http_proxy, socks5_proxy)
+    elif selected_llm_service == "deepseek":
+        llm_service = DeepseekService(deepseek_api_endpoint, deepseek_api_key, deepseek_model, http_proxy, socks5_proxy)
 
     if streaming_now:
         return llm_service.read_stream(stream_file, chat_file, pid_stream_file, stream_marker)

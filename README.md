@@ -1,12 +1,13 @@
 # <img src='icon.png' width='45' align='center' alt='icon'> Alfred-Chathub
 
-A chat tool that integrates multiple popular large language model (LLM) services, including OpenAI, Anthropic, Gemini, etc. Currently supports:
+A chat tool that integrates multiple popular large language model (LLM) services, including OpenAI, Anthropic, Gemini, DeepSeek, etc. Currently supports:
 - [x] OpenAI
 - [x] Anthropic
 - [x] Gemini
 - [x] Qwen
+- [x] Deepseek
 
-With the release of Alfred version 5.5, Alfred officially provided the [ChatGPT Workflow](https://github.com/alfredapp/openai-workflow), but it only supports OpenAI integration. When I installed and used it, my OpenAI API Key happened to be banned. Moreover, the ChatGPT Workflow is mainly based on JXA (JavaScript for Automation), which is difficult to extend. Therefore, I rewrote it in Python and extended support for other LLM services such as Anthropic and Gemini. Now, introducing support for a new LLM service is very easy.
+With the release of Alfred version 5.5, Alfred officially provided the [ChatGPT Workflow](https://github.com/alfredapp/openai-workflow), but it only supports OpenAI integration. When I installed and used it, my OpenAI API Key happened to be banned. Moreover, the ChatGPT Workflow is mainly based on JXA (JavaScript for Automation), which is difficult to extend. Therefore, I rewrote it in Python and extended support for other LLM services such as Anthropic, Gemini, and Deepseek. Now, introducing support for a new LLM service is very easy.
 
 ## Prerequisites
 
@@ -18,6 +19,7 @@ Here is how to get those api-keys:
 - Anthropic: https://console.anthropic.com/settings/keys
 - Gemini: https://ai.google.dev/gemini-api/docs/api-key
 - (Qwen)通义千问: https://help.aliyun.com/zh/dashscope/developer-reference/activate-dashscope-and-create-an-api-key
+- Deepseek: https://platform.deepseek.com/api_keys
 
 ## Usage
 
