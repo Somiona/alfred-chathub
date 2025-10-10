@@ -1,13 +1,21 @@
 #!/usr/bin/env python3
 
 from helper import *
+import os
+
+
+def _truncate(text, limit):
+    # 避免过长句子影响列表可读性
+    if not text:
+        return ""
+    return text if len(text) <= limit else text[: max(0, limit - 1)] + "…"
 
 def run():
     archive_dir = os.path.join(env_var("alfred_workflow_data"), "archive")
     if not os.path.exists(archive_dir):
         return no_archives()
 
-    sf_items = []
+    items = []
     chat_files = dir_contents(archive_dir)
 
     ongoing_chat_file = os.path.join(env_var("alfred_workflow_data"), "chat.json")
@@ -25,18 +33,29 @@ def run():
                 trash_chat(file)
                 continue
 
-            sf_items.append({
-                "type": "file",
-                "title": first_question,
-                "subtitle": last_question,
+            uid = os.path.basename(file)
+            title = _truncate(first_question, 80)
+            subtitle = _truncate(last_question or "", 120)
+            items.append({
+                "uid": uid,
+                "title": title,
+                "subtitle": subtitle,
                 "match": f"{first_question} {last_question}",
-                "arg": file
+                "arg": file,
+                "valid": True,
+                "text": {"copy": f"{first_question} — {last_question or ''}", "largetype": title}
             })
 
-    if not sf_items:
-        return no_archives()
+    if not items:
+        return json.dumps({
+            "items": [{
+                "title": "No Chat Histories Found",
+                "subtitle": "Start a new chat, then save",
+                "arg": "",
+                "valid": False
+            }]})
 
-    return json.dumps({ "items": sf_items })
+    return json.dumps({ "items": items })
 
 if __name__ == "__main__":
     print(run())
