@@ -194,32 +194,19 @@
 				<false/>
 			</dict>
 		</array>
-			<key>5B6E3E8E-1A64-4D2C-9E0E-27C2C25F0F55</key>
-			<array>
-				<dict>
-					<key>destinationuid</key>
-					<string>7B102A8C-0B0B-4A4B-9F1E-9A2F3C5E1B23</string>
-					<key>modifiers</key>
-					<integer>0</integer>
-					<key>modifiersubtext</key>
-					<string></string>
-					<key>vitoclose</key>
-					<true/>
-				</dict>
-			</array>
-			<key>7B102A8C-0B0B-4A4B-9F1E-9A2F3C5E1B23</key>
-			<array>
-				<dict>
-					<key>destinationuid</key>
-					<string>2345B220-18B0-4F70-9DD7-B7A20763FFBC</string>
-					<key>modifiers</key>
-					<integer>0</integer>
-					<key>modifiersubtext</key>
-					<string></string>
-					<key>vitoclose</key>
-					<true/>
-				</dict>
-			</array>
+		<key>5B6E3E8E-1A64-4D2C-9E0E-27C2C25F0F55</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>7B102A8C-0B0B-4A4B-9F1E-9A2F3C5E1B23</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<true/>
+			</dict>
+		</array>
 		<key>69E7709B-6303-4AE7-8DC3-DE711A831767</key>
 		<array>
 			<dict>
@@ -256,6 +243,19 @@
 				<string></string>
 				<key>vitoclose</key>
 				<false/>
+			</dict>
+		</array>
+		<key>7B102A8C-0B0B-4A4B-9F1E-9A2F3C5E1B23</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>2345B220-18B0-4F70-9DD7-B7A20763FFBC</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<true/>
 			</dict>
 		</array>
 		<key>879C841D-04CC-40AA-800D-689027CF0FB4</key>
@@ -1472,6 +1472,38 @@ fi</string>
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>script</key>
+				<string>/usr/bin/osascript -l JavaScript &lt;&lt;'JXA'
+function run(argv) {
+  /* 将选择的提供商写入 Alfred User Configuration，确保“Configure”面板同步显示 */
+  const app = Application('com.runningwithcrayons.Alfred');
+  const env = $.NSProcessInfo.processInfo.environment;
+  const valObj = env.objectForKey('selected_llm_service');
+  const val = ObjC.unwrap(valObj) || '';
+  app.setConfiguration('selected_llm_service', { toValue: val, inWorkflow: 'com.xyc.alfredworkflow.chathub', exportable: false });
+}
+JXA</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>11</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>7B102A8C-0B0B-4A4B-9F1E-9A2F3C5E1B23</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
 				<key>alfredfiltersresults</key>
 				<true/>
 				<key>alfredfiltersresultsmatchmode</key>
@@ -1535,42 +1567,10 @@ fi</string>
 			<string>alfred.workflow.utility.argument</string>
 			<key>uid</key>
 			<string>5B6E3E8E-1A64-4D2C-9E0E-27C2C25F0F55</string>
-				<key>version</key>
-				<integer>1</integer>
-			</dict>
-			<dict>
-				<key>config</key>
-				<dict>
-					<key>concurrently</key>
-					<false/>
-					<key>escaping</key>
-					<integer>102</integer>
-					<key>script</key>
-					<string>/usr/bin/osascript -l JavaScript &lt;&lt;'JXA'
-function run(argv) {
-  /* 将选择的提供商写入 Alfred User Configuration，确保“Configure”面板同步显示 */
-  const app = Application('com.runningwithcrayons.Alfred');
-  const env = $.NSProcessInfo.processInfo.environment;
-  const valObj = env.objectForKey('selected_llm_service');
-  const val = ObjC.unwrap(valObj) || '';
-  app.setConfiguration('selected_llm_service', { toValue: val, inWorkflow: 'com.xyc.alfredworkflow.chathub', exportable: false });
-}
-JXA</string>
-					<key>scriptargtype</key>
-					<integer>1</integer>
-					<key>scriptfile</key>
-					<string></string>
-					<key>type</key>
-					<integer>11</integer>
-				</dict>
-				<key>type</key>
-				<string>alfred.workflow.action.script</string>
-				<key>uid</key>
-				<string>7B102A8C-0B0B-4A4B-9F1E-9A2F3C5E1B23</string>
-				<key>version</key>
-				<integer>1</integer>
-			</dict>
-		</array>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+	</array>
 	<key>readme</key>
 	<string># &lt;img src='icon.png' width='45' align='center' alt='icon'&gt; Alfred-Chathub
 
@@ -1708,9 +1708,9 @@ Here is how to get those api-keys:
 		<key>5B6E3E8E-1A64-4D2C-9E0E-27C2C25F0F55</key>
 		<dict>
 			<key>xpos</key>
-			<real>2145</real>
+			<real>1130</real>
 			<key>ypos</key>
-			<real>935</real>
+			<real>940</real>
 		</dict>
 		<key>69E7709B-6303-4AE7-8DC3-DE711A831767</key>
 		<dict>
@@ -1727,6 +1727,13 @@ Here is how to get those api-keys:
 			<real>980</real>
 			<key>ypos</key>
 			<real>210</real>
+		</dict>
+		<key>7B102A8C-0B0B-4A4B-9F1E-9A2F3C5E1B23</key>
+		<dict>
+			<key>xpos</key>
+			<real>2015</real>
+			<key>ypos</key>
+			<real>910</real>
 		</dict>
 		<key>7CE25BF5-0AF8-411E-8A05-244BF7CA878F</key>
 		<dict>
