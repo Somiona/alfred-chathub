@@ -46,11 +46,11 @@ class DeepseekService(LLMService):
 
             choices = obj.get("choices")
             if isinstance(choices, list) and len(choices) > 0:
-                content = (
-                    choices[0].get("message", {}).get("content")
-                    or choices[0].get("delta", {}).get("content")
-                    or ""
-                )
+                # Deepseek-Reasoner 可能返回 content=None（思维片段在 reasoning_content），需做 None 安全处理
+                msg_content = choices[0].get("message", {}).get("content")
+                if msg_content is None:
+                    msg_content = choices[0].get("delta", {}).get("content")
+                content = msg_content if isinstance(msg_content, str) else ""
                 finish_reason = choices[0].get("finish_reason")
                 return content, "", True if finish_reason else False
 
@@ -85,9 +85,15 @@ class DeepseekService(LLMService):
                 message = str(error_from_sse)
             return message, "", True
 
-        response_text = "".join(
-            c["choices"][0].get("delta", {}).get("content", "") for c in valid_chunks
-        )
+        # 累积可见文本片段；忽略 reasoning_content，以避免在 UI 中输出“思维过程”
+        pieces = []
+        for c in valid_chunks:
+            delta = c["choices"][0].get("delta", {})
+            text = delta.get("content")
+            if text is None or not isinstance(text, str):
+                text = ""
+            pieces.append(text)
+        response_text = "".join(pieces)
 
         finish_reason = None
         if valid_chunks:
