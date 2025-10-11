@@ -36,26 +36,38 @@ class OpenaiService(LLMService):
             except:
                 return "", "Response body is not valid json.", True
 
-        chunks = []
-
+        raw_chunks = []
         for line in stream_string.split("\n"):
-            if line.startswith("data: "):
-                data_str = line[len("data: "):]
-                try:
-                    chunks.append(json.loads(data_str))
-                except json.JSONDecodeError as e:
-                    pass
+            if not line.startswith("data: "):
+                continue
+            data_str = line[len("data: "):].strip()
+            if data_str == "[DONE]":
+                continue
+            try:
+                raw_chunks.append(json.loads(data_str))
+            except json.JSONDecodeError:
+                continue
+
+        # 兼容性处理：部分 OpenAI 兼容服务会发送不含 choices 的心跳/统计事件。
+        valid_chunks = []
+        for obj in raw_chunks:
+            choices = obj.get("choices")
+            if isinstance(choices, list) and len(choices) > 0:
+                valid_chunks.append(obj)
 
         response_text = "".join(
-            item["choices"][0].get("delta", {}).get("content", "") for item in chunks
+            c["choices"][0].get("delta", {}).get("content", "") for c in valid_chunks
         )
 
-        finish_reason = chunks[-1]["choices"][0]["finish_reason"]
+        finish_reason = None
+        if valid_chunks:
+            finish_reason = valid_chunks[-1]["choices"][0].get("finish_reason")
+
         error_message = None
         has_stopped = False
 
         if finish_reason is None:
-            pass
+            has_stopped = False
         elif finish_reason == "stop":
             has_stopped = True
         elif finish_reason == "length":
