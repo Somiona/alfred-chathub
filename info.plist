@@ -2088,11 +2088,19 @@ Here is how to get those api-keys:
 				<key>default</key>
 				<string>claude-sonnet-4-0</string>
 				<key>pairs</key>
-				<array>
 					<array>
-						<string>Claude Sonnet 4 (alias)</string>
-						<string>claude-sonnet-4-0</string>
-					</array>
+						<array>
+							<string>Claude Opus 4.1 (alias)</string>
+							<string>claude-opus-4-1</string>
+						</array>
+						<array>
+							<string>Claude Opus 4.1 (20250805)</string>
+							<string>claude-opus-4-1-20250805</string>
+						</array>
+						<array>
+							<string>Claude Sonnet 4 (alias)</string>
+							<string>claude-sonnet-4-0</string>
+						</array>
 					<array>
 						<string>Claude Sonnet 4 (20250514)</string>
 						<string>claude-sonnet-4-20250514</string>
