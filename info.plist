@@ -2004,11 +2004,15 @@ Here is how to get those api-keys:
 				<key>default</key>
 				<string>gpt-4o</string>
 				<key>pairs</key>
-				<array>
 					<array>
-						<string>GPT-4o</string>
-						<string>gpt-4o</string>
-					</array>
+						<array>
+							<string>GPT-5</string>
+							<string>gpt-5</string>
+						</array>
+						<array>
+							<string>GPT-4o</string>
+							<string>gpt-4o</string>
+						</array>
 					<array>
 						<string>GPT-4.1</string>
 						<string>gpt-4.1</string>
