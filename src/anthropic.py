@@ -20,7 +20,7 @@ class AnthropicService(LLMService):
         return [
             "curl",
             f"{self.api_endpoint}/v1/messages",
-            "--speed-limit", "0", "--speed-time", "5",  # Abort stalled connection after a few seconds
+            "--speed-limit", "0", "--speed-time", str(self.stall_timeout_sec),  # Abort stalled connection after a few seconds
             "--silent", "--no-buffer",
             "--header", "Content-Type: application/json",
             "--header", f"User-Agent: {self.user_agent}",

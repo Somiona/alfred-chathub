@@ -13,12 +13,12 @@ class LLMService(ABC):
         self.model = model
         self.user_agent = "Alfred-Chathub"
         # 解析全局卡顿判定超时时间；限定允许值集合并设定安全缺省
-        timeout_str = env_var("stall_timeout_sec") or "5"
+        timeout_str = env_var("stall_timeout_sec") or "30"
         try:
             timeout_val = int(timeout_str)
         except Exception:
-            timeout_val = 5
-        self.stall_timeout_sec = timeout_val if timeout_val in {5, 15, 30, 60} else 5
+            timeout_val = 30
+        self.stall_timeout_sec = timeout_val if timeout_val in {15, 30, 60, 120} else 30
 
         if len(http_proxy) > 0:
             self.proxy_option = ["-x", f"http://{http_proxy}"]

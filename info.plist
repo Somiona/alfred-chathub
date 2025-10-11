@@ -2392,13 +2392,9 @@ Here is how to get those api-keys:
 			<key>config</key>
 			<dict>
 				<key>default</key>
-				<string>5</string>
+				<string>30</string>
 				<key>pairs</key>
 				<array>
-					<array>
-						<string>5s</string>
-						<string>5</string>
-					</array>
 					<array>
 						<string>15s</string>
 						<string>15</string>
@@ -2410,6 +2406,10 @@ Here is how to get those api-keys:
 					<array>
 						<string>60s</string>
 						<string>60</string>
+					</array>
+					<array>
+						<string>120s</string>
+						<string>120</string>
 					</array>
 				</array>
 			</dict>

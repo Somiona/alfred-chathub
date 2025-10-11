@@ -21,7 +21,7 @@ class DeepseekService(LLMService):
         return [
             "curl",
             f"{self.api_endpoint}/v1/chat/completions",
-            "--speed-limit", "0", "--speed-time", "5",
+            "--speed-limit", "0", "--speed-time", str(self.stall_timeout_sec),
             "--silent", "--no-buffer",
             "--header", f"User-Agent: {self.user_agent}",
             "--header", "Content-Type: application/json",
