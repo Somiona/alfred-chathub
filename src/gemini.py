@@ -61,10 +61,16 @@ class GeminiService(LLMService):
         return processed_parts, has_stopped
 
     def parse_stream_response(self, stream_string) -> Tuple[str, str, bool]:
+        # 统一错误呈现：若响应为一次性 JSON 错误体，则直接回显错误信息
         if stream_string.strip().startswith("{"):
-            response = json.loads(stream_string)
-            error_message = response.get("error", {}).get("message", "Unknown Error")
-            return "", error_message, True
+            try:
+                obj = json.loads(stream_string)
+            except Exception:
+                return "Response body is not valid json.", "", True
+            err = obj.get("error") or {}
+            if err:
+                return err.get("message", "Unknown Error"), "", True
+            return json.dumps(obj, ensure_ascii=False), "", True
 
         parts, has_stopped = self.read_and_split_file(stream_string)
 

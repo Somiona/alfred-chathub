@@ -29,9 +29,16 @@ class QwenService(LLMService):
         ] + self.proxy_option
 
     def parse_stream_response(self, stream_string) -> Tuple[str, str, bool]:
+        # 统一错误呈现：一次性 JSON 错误体直接输出 message
         if stream_string.strip().startswith("{"):
-            response = json.loads(stream_string)
-            return response.get("message", ""), response.get("code", "Unknown Error"), True
+            try:
+                obj = json.loads(stream_string)
+            except Exception:
+                return "Response body is not valid json.", "", True
+            # DashScope 错误格式通常含 code/message
+            if "message" in obj and ("code" in obj or "request_id" in obj):
+                return obj.get("message", "Unknown Error"), "", True
+            return json.dumps(obj, ensure_ascii=False), "", True
 
         lines = stream_string.strip().split("\n")
 
@@ -61,8 +68,8 @@ class QwenService(LLMService):
                     has_stopped = True
                     break
             elif current_event['event'] == "error":
-                has_stopped = True
-                error_message = current_event['data'].get("message", "Unknown Error")
-                break
+                # 直接回显错误信息并终止
+                message = current_event['data'].get("message", "Unknown Error") if current_event.get('data') else "Unknown Error"
+                return message, "", True
 
         return response_text, error_message, has_stopped

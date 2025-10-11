@@ -27,18 +27,24 @@ class OllamaService(LLMService):
 
     def parse_stream_response(self, stream_string):
         response_text = ""
-        error_message = ""
         has_stopped = False
 
         for line in stream_string.split("\n"):
-            if line.strip():
-                try:
-                    chunk = json.loads(line)
-                    if 'message' in chunk:
-                        response_text += chunk['message']['content']
-                    if 'done' in chunk and chunk['done']:
-                        has_stopped = True
-                except json.JSONDecodeError:
-                    error_message = "Error parsing JSON response"
+            if not line.strip():
+                continue
+            try:
+                chunk = json.loads(line)
+            except json.JSONDecodeError:
+                # 忽略不完整分片，避免误报
+                continue
 
-        return response_text, error_message, has_stopped
+            # 统一错误呈现：Ollama 在失败时可能返回 {"error": "..."}
+            if 'error' in chunk and chunk['error']:
+                return str(chunk['error']), "", True
+
+            if 'message' in chunk:
+                response_text += chunk['message'].get('content', '')
+            if 'done' in chunk and chunk['done']:
+                has_stopped = True
+
+        return response_text, None, has_stopped

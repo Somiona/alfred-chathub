@@ -31,13 +31,18 @@ class AnthropicService(LLMService):
         ] + self.proxy_option
 
     def parse_stream_response(self, stream_string) -> Tuple[str, str, bool]:
+        # 统一错误呈现：若为一次性 JSON 错误体，则直接回显可读错误信息
         if stream_string.startswith("{"):
             try:
-                error_type = json.loads(stream_string).get("error", {}).get("type", "Unknown Error")
-                error_message = json.loads(stream_string).get("error", {}).get("message", "Unknown Error")
-                return "", f"{error_type}: {error_message}", True
-            except:
-                return "", "Response body is not valid json.", True
+                obj = json.loads(stream_string)
+            except Exception:
+                return "Response body is not valid json.", "", True
+            err = obj.get("error") or {}
+            if err:
+                etype = err.get("type", "Error")
+                emsg = err.get("message", "Unknown Error")
+                return f"{etype}: {emsg}", "", True
+            return json.dumps(obj, ensure_ascii=False), "", True
 
         lines = stream_string.strip().split("\n")
 
@@ -69,19 +74,14 @@ class AnthropicService(LLMService):
                 finish_reason = "Finished"
                 break
             elif current_event['event'] == "error":
-                has_stopped = True
-                finish_reason = current_event['data'].get("error", {}).get("type", "Unknown")
-                break
+                # 直接回显错误详情并终止
+                err_obj = current_event['data'].get("error", {}) if current_event.get('data') else {}
+                etype = err_obj.get("type", "Error")
+                emsg = err_obj.get("message", "Unknown Error")
+                return f"{etype}: {emsg}", "", True
 
-        error_message = None
-        if finish_reason == "overloaded_error":
-            error_message = "Anthropic’s API is temporarily overloaded."
-        elif finish_reason == "rate_limit_error":
-            error_message = "Your account has hit a rate limit."
-        elif finish_reason == "api_error":
-            error_message = " An unexpected error has occurred internal to Anthropic’s systems."
-
-        return response_text, error_message, has_stopped
+        # 非错误结束场景下仅返回内容；错误已在上面直接回显
+        return response_text, None, has_stopped
 
     def start_stream(self, max_tokens, system_prompt, context_chat, stream_file, pid_stream_file):
         write_file(stream_file, "")

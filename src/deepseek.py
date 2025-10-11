@@ -31,33 +31,72 @@ class DeepseekService(LLMService):
         ] + self.proxy_option
 
     def parse_stream_response(self, stream_string) -> Tuple[str, str, bool]:
+        # 针对 Deepseek 的 OpenAI 兼容流：既可能返回一次性 JSON 错误体，也可能在 SSE 分片中夹带错误对象。
+        # 统一策略：遇到服务端错误时直接回显可读信息，不再走 footer 错误路径。
         if stream_string.startswith("{"):
             try:
-                error_message = json.loads(stream_string).get("error", {}).get("message")
-                return "", error_message, True
-            except:
-                return "", "Response body is not valid json.", True
+                obj = json.loads(stream_string)
+            except Exception:
+                return "Response body is not valid json.", "", True
 
-        chunks = []
+            err = obj.get("error")
+            if err is not None:
+                message = err.get("message") if isinstance(err, dict) else str(err)
+                return (message or json.dumps(err, ensure_ascii=False)), "", True
 
+            choices = obj.get("choices")
+            if isinstance(choices, list) and len(choices) > 0:
+                content = (
+                    choices[0].get("message", {}).get("content")
+                    or choices[0].get("delta", {}).get("content")
+                    or ""
+                )
+                finish_reason = choices[0].get("finish_reason")
+                return content, "", True if finish_reason else False
+
+            return json.dumps(obj, ensure_ascii=False), "", True
+
+        raw_chunks = []
+        error_from_sse = None
         for line in stream_string.split("\n"):
-            if line.startswith("data: "):
-                data_str = line[len("data: "):]
-                try:
-                    chunks.append(json.loads(data_str))
-                except json.JSONDecodeError:
-                    pass
+            if not line.startswith("data: "):
+                continue
+            data_str = line[len("data: "):].strip()
+            if data_str == "[DONE]":
+                continue
+            try:
+                obj = json.loads(data_str)
+                if isinstance(obj, dict) and obj.get("error") is not None and error_from_sse is None:
+                    error_from_sse = obj.get("error")
+                raw_chunks.append(obj)
+            except json.JSONDecodeError:
+                continue
+
+        valid_chunks = []
+        for obj in raw_chunks:
+            choices = obj.get("choices")
+            if isinstance(choices, list) and len(choices) > 0:
+                valid_chunks.append(obj)
+
+        if error_from_sse is not None:
+            if isinstance(error_from_sse, dict):
+                message = error_from_sse.get("message") or json.dumps(error_from_sse, ensure_ascii=False)
+            else:
+                message = str(error_from_sse)
+            return message, "", True
 
         response_text = "".join(
-            item["choices"][0].get("delta", {}).get("content", "") for item in chunks
+            c["choices"][0].get("delta", {}).get("content", "") for c in valid_chunks
         )
 
-        finish_reason = chunks[-1]["choices"][0]["finish_reason"] if chunks else None
+        finish_reason = None
+        if valid_chunks:
+            finish_reason = valid_chunks[-1]["choices"][0].get("finish_reason")
+
         error_message = None
         has_stopped = False
-
         if finish_reason is None:
-            pass
+            has_stopped = False
         elif finish_reason == "stop":
             has_stopped = True
         elif finish_reason == "length":
