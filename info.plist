@@ -2124,32 +2124,6 @@ Here is how to get those api-keys:
 			<key>config</key>
 			<dict>
 				<key>default</key>
-				<string>deepseek-chat</string>
-				<key>pairs</key>
-				<array>
-					<array>
-						<string>DeepSeek Chat</string>
-						<string>deepseek-chat</string>
-					</array>
-					<array>
-						<string>DeepSeek Reasoner</string>
-						<string>deepseek-reasoner</string>
-					</array>
-				</array>
-			</dict>
-			<key>description</key>
-			<string>Model</string>
-			<key>label</key>
-			<string></string>
-			<key>type</key>
-			<string>popupbutton</string>
-			<key>variable</key>
-			<string>deepseek_model</string>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>default</key>
 				<string></string>
 				<key>placeholder</key>
 				<string></string>
