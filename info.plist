@@ -2002,28 +2002,32 @@ Here is how to get those api-keys:
 			<key>config</key>
 			<dict>
 				<key>default</key>
-				<string>gpt-3.5-turbo</string>
+				<string>gpt-4o</string>
 				<key>pairs</key>
 				<array>
 					<array>
-						<string>GPT-3.5 Turbo</string>
-						<string>gpt-3.5-turbo</string>
+						<string>GPT-4o</string>
+						<string>gpt-4o</string>
 					</array>
 					<array>
-						<string>GPT-4</string>
-						<string>gpt-4</string>
+						<string>GPT-4.1</string>
+						<string>gpt-4.1</string>
+					</array>
+					<array>
+						<string>GPT-4.1 Mini</string>
+						<string>gpt-4.1-mini</string>
 					</array>
 					<array>
 						<string>GPT-4 Turbo</string>
 						<string>gpt-4-turbo</string>
 					</array>
 					<array>
-						<string>GPT-4o</string>
-						<string>gpt-4o</string>
+						<string>GPT-4</string>
+						<string>gpt-4</string>
 					</array>
 					<array>
-						<string>gpt-5</string>
-						<string>gpt-5</string>
+						<string>GPT-3.5 Turbo</string>
+						<string>gpt-3.5-turbo</string>
 					</array>
 				</array>
 			</dict>
@@ -2082,24 +2086,28 @@ Here is how to get those api-keys:
 			<key>config</key>
 			<dict>
 				<key>default</key>
-				<string>claude-3-opus-20240229</string>
+				<string>claude-sonnet-4-0</string>
 				<key>pairs</key>
 				<array>
 					<array>
-						<string>Claude 3.5 Sonnet</string>
-						<string>claude-3-5-sonnet-20240620</string>
+						<string>Claude Sonnet 4 (alias)</string>
+						<string>claude-sonnet-4-0</string>
 					</array>
 					<array>
-						<string>Claude 3 Opus</string>
-						<string>claude-3-opus-20240229</string>
+						<string>Claude Sonnet 4 (20250514)</string>
+						<string>claude-sonnet-4-20250514</string>
 					</array>
 					<array>
-						<string>Claude 3 Sonnet</string>
-						<string>claude-3-sonnet-20240229</string>
+						<string>Claude Opus 4 (alias)</string>
+						<string>claude-opus-4-0</string>
 					</array>
 					<array>
-						<string>Claude 3 Haiku</string>
-						<string>claude-3-haiku-20240307</string>
+						<string>Claude 3.7 Sonnet</string>
+						<string>claude-3-7-sonnet-20250219</string>
+					</array>
+					<array>
+						<string>Claude 3.5 Haiku</string>
+						<string>claude-3-5-haiku-20241022</string>
 					</array>
 				</array>
 			</dict>
@@ -2124,8 +2132,8 @@ Here is how to get those api-keys:
 						<string>deepseek-chat</string>
 					</array>
 					<array>
-						<string>DeepSeek Code</string>
-						<string>deepseek-code</string>
+						<string>DeepSeek Reasoner</string>
+						<string>deepseek-reasoner</string>
 					</array>
 				</array>
 			</dict>
@@ -2163,20 +2171,20 @@ Here is how to get those api-keys:
 			<key>config</key>
 			<dict>
 				<key>default</key>
-				<string>gemini-2.5-flash-preview-04-17</string>
+				<string>gemini-2.5-flash</string>
 				<key>pairs</key>
 				<array>
 					<array>
-						<string>Gemini 2.5 Flash</string>
-						<string>gemini-2.5-flash-preview-04-17</string>
-					</array>
-					<array>
 						<string>Gemini 2.5 Pro</string>
-						<string>gemini-2.5-pro-preview-03-25</string>
+						<string>gemini-2.5-pro</string>
 					</array>
 					<array>
-						<string>Gemini 2.0 Flash</string>
-						<string>gemini-2.0-flash</string>
+						<string>Gemini 2.5 Flash</string>
+						<string>gemini-2.5-flash</string>
+					</array>
+					<array>
+						<string>Gemini 2.5 Flash Lite</string>
+						<string>gemini-2.5-flash-lite</string>
 					</array>
 				</array>
 			</dict>
@@ -2228,6 +2236,10 @@ Here is how to get those api-keys:
 					<array>
 						<string>qwen-max</string>
 						<string>qwen-max</string>
+					</array>
+					<array>
+						<string>qwen-long</string>
+						<string>qwen-long</string>
 					</array>
 				</array>
 			</dict>
@@ -2311,8 +2323,12 @@ Here is how to get those api-keys:
 				<key>pairs</key>
 				<array>
 					<array>
+						<string>DeepSeek Chat</string>
 						<string>deepseek-chat</string>
-						<string>deepseek-chat</string>
+					</array>
+					<array>
+						<string>DeepSeek Reasoner</string>
+						<string>deepseek-reasoner</string>
 					</array>
 				</array>
 			</dict>
