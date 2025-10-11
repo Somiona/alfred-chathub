@@ -62,11 +62,14 @@ class OpenaiService(LLMService):
 
         raw_chunks = []
         error_from_sse = None
+        saw_done = False
         for line in stream_string.split("\n"):
             if not line.startswith("data: "):
                 continue
             data_str = line[len("data: "):].strip()
             if data_str == "[DONE]":
+                # 某些新模型可能不再在最后一个 choices 中给出 finish_reason，此时仅依赖 [DONE] 作为结束信号
+                saw_done = True
                 continue
             try:
                 obj = json.loads(data_str)
@@ -104,8 +107,11 @@ class OpenaiService(LLMService):
         has_stopped = False
 
         if finish_reason is None:
-            has_stopped = False
+            # 兼容：若未给出 finish_reason，但已收到 [DONE]，则判定为完成
+            has_stopped = True if saw_done else False
         elif finish_reason == "stop":
+            has_stopped = True
+        elif finish_reason == "end_turn":  # 向后兼容可能的别名
             has_stopped = True
         elif finish_reason == "length":
             has_stopped = True
