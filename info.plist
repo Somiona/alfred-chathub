@@ -1993,7 +1993,7 @@ Here is how to get those api-keys:
 			<key>description</key>
 			<string>API Endpoint</string>
 			<key>label</key>
-			<string>OpenAI</string>
+			<string></string>
 			<key>type</key>
 			<string>textfield</string>
 			<key>variable</key>
