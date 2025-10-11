@@ -1969,10 +1969,16 @@ Here is how to get those api-keys:
 						<string>GPT-4o</string>
 						<string>gpt-4o</string>
 					</array>
+					<array>
+						<string>gpt-5</string>
+						<string>gpt-5</string>
+					</array>
 				</array>
 			</dict>
 			<key>description</key>
 			<string>Model</string>
+			<key>label</key>
+			<string></string>
 			<key>type</key>
 			<string>popupbutton</string>
 			<key>variable</key>
@@ -2047,6 +2053,8 @@ Here is how to get those api-keys:
 			</dict>
 			<key>description</key>
 			<string>Model</string>
+			<key>label</key>
+			<string></string>
 			<key>type</key>
 			<string>popupbutton</string>
 			<key>variable</key>
@@ -2071,6 +2079,8 @@ Here is how to get those api-keys:
 			</dict>
 			<key>description</key>
 			<string>Model</string>
+			<key>label</key>
+			<string></string>
 			<key>type</key>
 			<string>popupbutton</string>
 			<key>variable</key>
@@ -2377,6 +2387,40 @@ Here is how to get those api-keys:
 			<string>popupbutton</string>
 			<key>variable</key>
 			<string>max_tokens</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
+				<string>5</string>
+				<key>pairs</key>
+				<array>
+					<array>
+						<string>5s</string>
+						<string>5</string>
+					</array>
+					<array>
+						<string>15s</string>
+						<string>15</string>
+					</array>
+					<array>
+						<string>30s</string>
+						<string>30</string>
+					</array>
+					<array>
+						<string>60s</string>
+						<string>60</string>
+					</array>
+				</array>
+			</dict>
+			<key>description</key>
+			<string>Detect stalled streaming connection</string>
+			<key>label</key>
+			<string>Stall Timeout</string>
+			<key>type</key>
+			<string>popupbutton</string>
+			<key>variable</key>
+			<string>stall_timeout_sec</string>
 		</dict>
 		<dict>
 			<key>config</key>

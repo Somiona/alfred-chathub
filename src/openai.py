@@ -19,7 +19,7 @@ class OpenaiService(LLMService):
         return [
             "curl",
             f"{self.api_endpoint}/v1/chat/completions",
-            "--speed-limit", "0", "--speed-time", "5",  # Abort stalled connection after a few seconds
+            "--speed-limit", "0", "--speed-time", str(self.stall_timeout_sec),  # Abort stalled connection after a few seconds
             "--silent", "--no-buffer",
             "--header", f"User-Agent: {self.user_agent}",
             "--header", "Content-Type: application/json",
