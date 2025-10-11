@@ -596,98 +596,6 @@
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>argumenttype</key>
-				<integer>1</integer>
-				<key>keyword</key>
-				<string>chp</string>
-				<key>skipuniversalaction</key>
-				<true/>
-				<key>subtext</key>
-				<string>Switch provider profile</string>
-				<key>text</key>
-				<string>ChatHub Profile</string>
-				<key>withspace</key>
-				<true/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.input.keyword</string>
-			<key>uid</key>
-			<string>D2C5F2C1-8C43-4A2B-8BB1-3D9D2D3D77AA</string>
-			<key>version</key>
-			<integer>1</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>argument</key>
-				<string>{query}</string>
-				<key>passthroughargument</key>
-				<false/>
-				<key>variables</key>
-				<dict>
-					<key>selected_llm_service</key>
-					<string>{query}</string>
-				</dict>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.utility.argument</string>
-			<key>uid</key>
-			<string>5B6E3E8E-1A64-4D2C-9E0E-27C2C25F0F55</string>
-			<key>version</key>
-			<integer>1</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>alfredfiltersresults</key>
-				<true/>
-				<key>alfredfiltersresultsmatchmode</key>
-				<integer>0</integer>
-				<key>argumenttreatemptyqueryasnil</key>
-				<true/>
-				<key>argumenttrimmode</key>
-				<integer>0</integer>
-				<key>argumenttype</key>
-				<integer>1</integer>
-				<key>escaping</key>
-				<integer>68</integer>
-				<key>queuedelaycustom</key>
-				<integer>1</integer>
-				<key>queuedelayimmediatelyinitially</key>
-				<false/>
-				<key>queuedelaymode</key>
-				<integer>0</integer>
-				<key>queuemode</key>
-				<integer>1</integer>
-				<key>runningsubtext</key>
-				<string>Loading Profiles…</string>
-				<key>script</key>
-				<string></string>
-				<key>scriptargtype</key>
-				<integer>1</integer>
-				<key>scriptfile</key>
-				<string>src/profiles.py</string>
-				<key>skipuniversalaction</key>
-				<true/>
-				<key>subtext</key>
-				<string></string>
-				<key>title</key>
-				<string>Choose Provider</string>
-				<key>type</key>
-				<integer>8</integer>
-				<key>withspace</key>
-				<false/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.input.scriptfilter</string>
-			<key>uid</key>
-			<string>1E7E6B4F-72D9-4C8B-A3D7-2C6B2B6E1C22</string>
-			<key>version</key>
-			<integer>3</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
 				<key>availableviaurlhandler</key>
 				<false/>
 				<key>triggerid</key>
@@ -1525,6 +1433,98 @@ fi</string>
 			<key>version</key>
 			<integer>2</integer>
 		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>keyword</key>
+				<string>chp</string>
+				<key>skipuniversalaction</key>
+				<true/>
+				<key>subtext</key>
+				<string>Switch provider profile</string>
+				<key>text</key>
+				<string>ChatHub Profile</string>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>D2C5F2C1-8C43-4A2B-8BB1-3D9D2D3D77AA</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
+				<true/>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>0</integer>
+				<key>argumenttreatemptyqueryasnil</key>
+				<true/>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>68</integer>
+				<key>queuedelaycustom</key>
+				<integer>1</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<false/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string>Loading Profiles…</string>
+				<key>script</key>
+				<string></string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string>src/profiles.py</string>
+				<key>skipuniversalaction</key>
+				<true/>
+				<key>subtext</key>
+				<string></string>
+				<key>title</key>
+				<string>Choose Provider</string>
+				<key>type</key>
+				<integer>8</integer>
+				<key>withspace</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>1E7E6B4F-72D9-4C8B-A3D7-2C6B2B6E1C22</string>
+			<key>version</key>
+			<integer>3</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argument</key>
+				<string>{query}</string>
+				<key>passthroughargument</key>
+				<false/>
+				<key>variables</key>
+				<dict>
+					<key>selected_llm_service</key>
+					<string>{query}</string>
+				</dict>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.utility.argument</string>
+			<key>uid</key>
+			<string>5B6E3E8E-1A64-4D2C-9E0E-27C2C25F0F55</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
 	</array>
 	<key>readme</key>
 	<string># &lt;img src='icon.png' width='45' align='center' alt='icon'&gt; Alfred-Chathub
@@ -1603,9 +1603,9 @@ Here is how to get those api-keys:
 		<key>1E7E6B4F-72D9-4C8B-A3D7-2C6B2B6E1C22</key>
 		<dict>
 			<key>xpos</key>
-			<real>495</real>
+			<real>475</real>
 			<key>ypos</key>
-			<real>15</real>
+			<real>910</real>
 		</dict>
 		<key>2345B220-18B0-4F70-9DD7-B7A20763FFBC</key>
 		<dict>
@@ -1663,9 +1663,9 @@ Here is how to get those api-keys:
 		<key>5B6E3E8E-1A64-4D2C-9E0E-27C2C25F0F55</key>
 		<dict>
 			<key>xpos</key>
-			<real>900</real>
+			<real>2145</real>
 			<key>ypos</key>
-			<real>15</real>
+			<real>935</real>
 		</dict>
 		<key>69E7709B-6303-4AE7-8DC3-DE711A831767</key>
 		<dict>
@@ -1797,9 +1797,9 @@ Here is how to get those api-keys:
 		<key>D2C5F2C1-8C43-4A2B-8BB1-3D9D2D3D77AA</key>
 		<dict>
 			<key>xpos</key>
-			<real>245</real>
+			<real>70</real>
 			<key>ypos</key>
-			<real>15</real>
+			<real>910</real>
 		</dict>
 		<key>DA9FB2AC-0A0A-463D-B07A-B25CD699C24C</key>
 		<dict>
