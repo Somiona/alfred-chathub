@@ -1,5 +1,5 @@
 import json
-from typing import Tuple
+from typing import Optional, Tuple
 
 from llm_service import LLMService
 
@@ -37,7 +37,7 @@ class ChatGLMService(LLMService):
             stream_file,
         ] + self.proxy_option
 
-    def parse_stream_response(self, stream_string) -> Tuple[str, str | None, bool]:
+    def parse_stream_response(self, stream_string) -> Tuple[str, Optional[str], bool]:
         # 当响应不是 SSE 流（不以 data: 开头）时，可能是错误或非流式一次性响应。
         # 为了“直接展示错误信息”，这里优先解析错误对象；若是一次性成功响应则回退到正常内容解析。
         if stream_string.startswith("{"):

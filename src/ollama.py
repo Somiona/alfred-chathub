@@ -1,4 +1,5 @@
 import json
+from typing import Optional
 
 from llm_service import LLMService
 
@@ -32,7 +33,7 @@ class OllamaService(LLMService):
             stream_file,
         ] + self.proxy_option
 
-    def parse_stream_response(self, stream_string) -> tuple[str, str | None, bool]:
+    def parse_stream_response(self, stream_string) -> tuple[str, Optional[str], bool]:
         response_text = ""
         has_stopped = False
 

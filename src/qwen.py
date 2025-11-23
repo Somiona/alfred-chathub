@@ -1,5 +1,5 @@
 import json
-from typing import Tuple
+from typing import Optional, Tuple
 
 from llm_service import LLMService
 
@@ -40,7 +40,7 @@ class QwenService(LLMService):
             stream_file,
         ] + self.proxy_option
 
-    def parse_stream_response(self, stream_string) -> Tuple[str, str | None, bool]:
+    def parse_stream_response(self, stream_string) -> Tuple[str, Optional[str], bool]:
         # 统一错误呈现：一次性 JSON 错误体直接输出 message
         if stream_string.strip().startswith("{"):
             try:

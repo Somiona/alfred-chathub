@@ -1,5 +1,5 @@
 import json
-from typing import Tuple
+from typing import Optional, Tuple
 
 from llm_service import LLMService
 
@@ -75,7 +75,7 @@ class GeminiService(LLMService):
             processed_parts.append(part)
         return processed_parts, has_stopped
 
-    def parse_stream_response(self, stream_string) -> Tuple[str, str | None, bool]:
+    def parse_stream_response(self, stream_string) -> Tuple[str, Optional[str], bool]:
         # 统一错误呈现：若响应为一次性 JSON 错误体，则直接回显错误信息
         if stream_string.strip().startswith("{"):
             try:

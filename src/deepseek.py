@@ -3,7 +3,7 @@
 import json
 import tempfile
 import time
-from typing import Tuple
+from typing import Optional, Tuple
 
 from llm_service import LLMService
 
@@ -40,7 +40,7 @@ class DeepseekService(LLMService):
             stream_file,
         ] + self.proxy_option
 
-    def parse_stream_response(self, stream_string) -> Tuple[str, str | None, bool]:
+    def parse_stream_response(self, stream_string) -> Tuple[str, Optional[str], bool]:
         # 针对 Deepseek 的 OpenAI 兼容流：既可能返回一次性 JSON 错误体，也可能在 SSE 分片中夹带错误对象。
         # 统一策略：遇到服务端错误时直接回显可读信息，不再走 footer 错误路径。
         if stream_string.startswith("{"):

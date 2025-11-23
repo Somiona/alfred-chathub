@@ -1,6 +1,6 @@
 import json
 import subprocess
-from typing import Tuple
+from typing import Optional, Tuple
 
 from helper import os, write_file
 from llm_service import LLMService
@@ -43,7 +43,7 @@ class AnthropicService(LLMService):
             stream_file,
         ] + self.proxy_option
 
-    def parse_stream_response(self, stream_string) -> Tuple[str, str | None, bool]:
+    def parse_stream_response(self, stream_string) -> Tuple[str, Optional[str], bool]:
         # 统一错误呈现：若为一次性 JSON 错误体，则直接回显可读错误信息
         if stream_string.startswith("{"):
             try:

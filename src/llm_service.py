@@ -3,7 +3,7 @@ import os
 import subprocess
 import time
 from abc import ABC, abstractmethod
-from typing import Tuple
+from typing import Optional, Tuple
 
 from helper import (
     append_chat,
@@ -43,7 +43,7 @@ class LLMService(ABC):
         pass
 
     @abstractmethod
-    def parse_stream_response(self, stream_string) -> Tuple[str, str | None, bool]:
+    def parse_stream_response(self, stream_string) -> Tuple[str, Optional[str], bool]:
         pass
 
     def remove_empty_assistant_messages(self, messages):
