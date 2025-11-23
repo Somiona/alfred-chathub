@@ -4,7 +4,7 @@ from typing import Tuple
 from llm_service import LLMService
 
 
-class OpenaiService(LLMService):
+class ChatGLMService(LLMService):
     def construct_curl_command(self, max_tokens, messages, stream_file) -> list:
         """
         message here:
@@ -18,7 +18,7 @@ class OpenaiService(LLMService):
 
         return [
             "curl",
-            f"{self.api_endpoint}/v1/chat/completions",
+            f"{self.api_endpoint}/chat/completions",
             "--speed-limit",
             "0",
             "--speed-time",
@@ -110,7 +110,7 @@ class OpenaiService(LLMService):
                 message = str(error_from_sse)
             return message, "", True
 
-        response_text = "".join(
+        response_text: str = "".join(
             c["choices"][0].get("delta", {}).get("content", "") for c in valid_chunks
         )
 
